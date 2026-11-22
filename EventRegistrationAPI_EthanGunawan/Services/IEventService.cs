@@ -7,4 +7,5 @@ public interface IEventService
 {
     Task<List<EventDto>> GetEventsAsync();
     Task<EventDto?> GetEventByIdAsync(int id);
+    Task<EventDto> CreateEventAsync(CreateEventDto dto);
 }

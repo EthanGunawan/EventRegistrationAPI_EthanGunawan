@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using EventRegistrationAPI_EthanGunawan.Validation;
 
 namespace EventRegistrationAPI_EthanGunawan.DTOs;
 
@@ -12,7 +13,7 @@ public class CreateEventDto
     [Required(ErrorMessage = "Location is required.")]
     public string Location { get; set; } = string.Empty;
 
-    // FutureDate will be added in Milestone 3.
+    [FutureDate(ErrorMessage = "Event date must be in the future.")]
     public DateTime EventDate { get; set; }
 
     [Range(1, 500, ErrorMessage = "Capacity must be between 1 and 500.")]

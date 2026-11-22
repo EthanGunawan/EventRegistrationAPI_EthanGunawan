@@ -37,6 +37,23 @@ public class EventService : IEventService
         return eventEntity == null ? null : MapToDto(eventEntity);
     }
 
+    // Creates a new event from a validated input DTO.
+    public async Task<EventDto> CreateEventAsync(CreateEventDto dto)
+    {
+        var newEvent = new Event
+        {
+            Title = dto.Title,
+            Location = dto.Location,
+            EventDate = dto.EventDate,
+            Capacity = dto.Capacity
+        };
+
+        _context.Events.Add(newEvent);
+        await _context.SaveChangesAsync();
+
+        return MapToDto(newEvent);
+    }
+
     // Converts an EF entity into an EventDto and calculates registration values.
     private static EventDto MapToDto(Event eventEntity)
     {
