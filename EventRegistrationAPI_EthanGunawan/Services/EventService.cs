@@ -53,6 +53,30 @@ public class EventService : IEventService
 
         return MapToDto(newEvent);
     }
+    
+    // Returns registrations for an event, or null when the event does not exist.
+    public async Task<List<RegistrationDto>?> GetRegistrationsForEventAsync(int eventId)
+    {
+        var eventEntity = await _context.Events
+            .Include(e => e.Registrations)
+            .FirstOrDefaultAsync(e => e.EventId == eventId);
+
+        if (eventEntity == null)
+        {
+            return null;
+        }
+
+        return eventEntity.Registrations
+            .Select(r => new RegistrationDto
+            {
+                RegistrationId = r.RegistrationId,
+                EventTitle = eventEntity.Title,
+                StudentName = r.StudentName,
+                Email = r.Email,
+                RegisteredOn = r.RegisteredOn
+            })
+            .ToList();
+    }
 
     // Converts an EF entity into an EventDto and calculates registration values.
     private static EventDto MapToDto(Event eventEntity)

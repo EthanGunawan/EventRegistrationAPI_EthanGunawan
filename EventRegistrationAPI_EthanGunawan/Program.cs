@@ -18,6 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Register the event service with dependency injection.
 builder.Services.AddScoped<IEventService, EventService>();
+
+// Register the registration service with dependency injection.
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
