@@ -1,0 +1,6 @@
+@EventRegistrationAPI_EthanGunawan_HostAddress = http://localhost:5234
+
+GET {{EventRegistrationAPI_EthanGunawan_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
