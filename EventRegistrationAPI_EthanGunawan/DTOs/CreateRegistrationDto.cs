@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EventRegistrationAPI_EthanGunawan.DTOs;
 
-// Input DTO used to register a person for an event.
-// RegisteredOn is excluded because the service sets it automatically.
+/// <summary>
+/// Input DTO used to register a person for an event.
+/// RegisteredOn is not included because the service sets it automatically.
+/// </summary>
 public class CreateRegistrationDto
 {
     [Required(ErrorMessage = "Student name is required.")]

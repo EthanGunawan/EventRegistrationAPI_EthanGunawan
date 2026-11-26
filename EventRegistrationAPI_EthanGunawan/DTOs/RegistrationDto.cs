@@ -1,6 +1,8 @@
 namespace EventRegistrationAPI_EthanGunawan.DTOs;
 
-// Output DTO returned when registration data is needed.
+/// <summary>
+/// Output DTO returned when registration information is needed.
+/// </summary>
 public class RegistrationDto
 {
     public int RegistrationId { get; set; }

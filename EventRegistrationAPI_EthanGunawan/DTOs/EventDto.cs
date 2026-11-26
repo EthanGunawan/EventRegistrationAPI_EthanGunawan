@@ -1,7 +1,9 @@
 namespace EventRegistrationAPI_EthanGunawan.DTOs;
 
-// Output DTO returned by event endpoints.
-// It prevents EF entities from being returned to API clients.
+/// <summary>
+/// Output DTO returned by event endpoints.
+/// It prevents Entity Framework entities from being returned to API clients.
+/// </summary>
 public class EventDto
 {
     public int EventId { get; set; }
@@ -10,9 +12,15 @@ public class EventDto
     public DateTime EventDate { get; set; }
     public int Capacity { get; set; }
 
-    // Calculated from the number of registrations; not stored in the database.
+    /// <summary>
+    /// Calculated from the number of registrations for the event.
+    /// This value is not stored in the database.
+    /// </summary>
     public int RegisteredCount { get; set; }
 
-    // Calculated as Capacity minus RegisteredCount; not stored in the database.
+    /// <summary>
+    /// Calculated as Capacity minus RegisteredCount.
+    /// This value is not stored in the database.
+    /// </summary>
     public int SpotsLeft { get; set; }
 }

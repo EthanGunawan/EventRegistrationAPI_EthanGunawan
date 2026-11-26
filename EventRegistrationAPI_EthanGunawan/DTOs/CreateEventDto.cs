@@ -3,7 +3,9 @@ using EventRegistrationAPI_EthanGunawan.Validation;
 
 namespace EventRegistrationAPI_EthanGunawan.DTOs;
 
-// Input DTO used to create a new event.
+/// <summary>
+/// Input DTO used to create a new campus event.
+/// </summary>
 public class CreateEventDto
 {
     [Required(ErrorMessage = "Title is required.")]
@@ -13,6 +15,9 @@ public class CreateEventDto
     [Required(ErrorMessage = "Location is required.")]
     public string Location { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The event must occur in the future.
+    /// </summary>
     [FutureDate(ErrorMessage = "Event date must be in the future.")]
     public DateTime EventDate { get; set; }
 

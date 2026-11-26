@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventRegistrationAPI_EthanGunawan.Services;
 
-// RegistrationService performs all registration database work, DTO mapping, and business rules.
+/// <summary>
+/// RegistrationService performs all registration database work, DTO mapping,
+/// and registration business rules. Controllers call this service instead of
+/// using AppDbContext directly.
+/// </summary>
 public class RegistrationService : IRegistrationService
 {
     private readonly AppDbContext _context;
@@ -16,9 +20,17 @@ public class RegistrationService : IRegistrationService
         _context = context;
     }
 
-    // Registers a person for an event after checking all business rules.
+    /// <summary>
+    /// Registers a person for an event after checking all business rules.
+    /// </summary>
     public async Task<RegistrationDto> RegisterAsync(int eventId, CreateRegistrationDto dto)
     {
+        // Business rules are checked in the required order:
+        // 1. The event must exist.
+        // 2. The event must not be in the past.
+        // 3. The email must not already be registered for this event.
+        // 4. The event must have available capacity.
+
         // Rule 1: The event must exist.
         var eventEntity = await _context.Events
             .Include(e => e.Registrations)
@@ -56,6 +68,8 @@ public class RegistrationService : IRegistrationService
             EventId = eventId,
             StudentName = dto.StudentName,
             Email = dto.Email,
+
+            // RegisteredOn is set automatically when the registration is created.
             RegisteredOn = DateTime.Now
         };
 
@@ -72,7 +86,10 @@ public class RegistrationService : IRegistrationService
         };
     }
 
-    // Cancels a registration and frees one spot. Returns false if it does not exist.
+    /// <summary>
+    /// Cancels a registration and frees one spot.
+    /// Returns false if the registration does not exist.
+    /// </summary>
     public async Task<bool> DeleteRegistrationAsync(int registrationId)
     {
         var registration = await _context.Registrations

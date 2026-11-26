@@ -1,6 +1,9 @@
 namespace EventRegistrationAPI_EthanGunawan.Exceptions;
 
-// Thrown when the same email tries to register for the same event more than once.
+/// <summary>
+/// Thrown when the same email tries to register for the same event more than once.
+/// The controller converts this exception into a 409 Conflict response.
+/// </summary>
 public class DuplicateRegistrationException : Exception
 {
     public DuplicateRegistrationException()

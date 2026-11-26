@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventRegistrationAPI_EthanGunawan.Controllers;
 
-// RegistrationsController handles registration cancellation.
+/// <summary>
+/// RegistrationsController handles registration cancellation.
+/// It calls the service layer and does not use AppDbContext directly.
+/// </summary>
 [ApiController]
 [Route("api/registrations")]
 public class RegistrationsController : ControllerBase
@@ -15,8 +18,11 @@ public class RegistrationsController : ControllerBase
         _registrationService = registrationService;
     }
 
-    // DELETE /api/registrations/{id}
-    // Cancels a registration and frees one spot.
+    /// <summary>
+    /// DELETE /api/registrations/{id}
+    /// Cancels a registration and frees one spot.
+    /// Returns 204 No Content when successful, or 404 if not found.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRegistration(int id)
     {
@@ -27,7 +33,7 @@ public class RegistrationsController : ControllerBase
             return NotFound($"Registration with ID {id} was not found.");
         }
 
-        // 204 No Content is returned when deletion succeeds.
+        // 204 No Content is returned because there is no response body.
         return NoContent();
     }
 }
